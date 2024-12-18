@@ -1,0 +1,132 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.login-body {
+    background-color: #f8f9fa;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border: 3px solid #ced4da; /*thin border for the form*/
+    border-radius: 10px; /* Round Corners*/
+}
+
+/* input fields styling */
+.form-control {
+    border: 3px solid #ced4da;
+    border-radius: 5px; /*thin border for the form*/
+    padding: 10px;
+    transition: border-color 0.3s ease-in-out; /* smooth transition for focus*/
+}
+
+    /* input fields focus effect*/
+
+    .form-control:focus {
+        border-color: #0d6efd; /*blue border on foucs*/
+        box-shadow: 0 0 5px rgba(13,110,253,0.5); /*glow effect on focus*/
+        outline: none;
+    }
+
+/*checkbox styling*/
+.form-check-input {
+    border: 2px solid #ced4da; /*add border to the checkbox*/
+    border-radius: 3px; /*rounded corners for the checkbox*/
+    width: 20px; /*adjust checkbox size*/
+    height: 20px;
+    margin-top: 2px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+    /* c*heck box focus */
+
+    .form-check-input:focus {
+        border-color: #0d6efd; /*blue darker on focus*/
+        box-shadow: 0 0 5px rgba(13,110,253,0.5);
+    }
+
+
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+    .btn-primary:hover {
+        background-color: #0b5ed7; /*darker blue on hover*/
+    }
+
+.login-h2 {
+    color: #343a40;
+}
+
+.desk {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
+.available {
+    background-color: green;
+}
+
+.booked {
+    background-color: red;
+}
+
+.guest {
+    background-color: blue;
+}
+
+.selected {
+    border: 2px solid yellow;
+}
+/*working*/
+
+/*.bg-image {
+    background-image: url('../Images/BgimageDark.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    padding: 20px;
+}*/
+
+/*working*/
+.book-your-desk-style {
+    color: aquamarine;
+}
+
+/*working*/
+
+.register-label {
+    color: cornsilk;
+}
+
+
+.side-Iamge{
+    border-radius: 3px;
+}

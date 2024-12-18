@@ -1,0 +1,298 @@
+﻿@* @{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+*@
+
+<head>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/indexpage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+@{
+    ViewData["Title"] = "Booking";
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    //attempt:2 for adding desk booking functionality
+
+    string GetDeskClass(Desk_Booking.Models.Desk desk)
+    {
+        if (desk.IsBooked)
+        {
+            return "booked";
+        }
+        else if (desk.IsGuest)
+        {
+            return "guest";
+        }
+        else
+        {
+            return "available";
+        }
+    }
+}
+
+
+
+<div class="bg-image d-flex justify-content-center align-items-center min-vh-100">
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div>
+    <div class="falling-star"></div><div class="starfall">
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+        <div class="falling-star"></div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-md-6">
+                @* <h2 class="book-your-desk-style">Book your desk</h2> *@
+                <h2 class="book-your-desk-style"> Book your seat</h2>
+                @if (TempData["BookingExists"] != null && TempData["BookingExists"] is bool bookingExists && bookingExists)
+                {
+                    <div class="alert alert-info">
+                        You have already booked a seat. <a href="@Url.Action("Display", "Booking")" class="btn btn-primary">View Booking Details</a>
+                    </div>
+                }
+                <form asp-action="Create" method="post" id="bookingForm">
+                    <div class="form-group">
+                        <label for="Location" class="register-label">Location</label>
+                        <select id="Location" name="Location" class="form-control">
+                            <option value="Tambaram">Tambaram</option>
+                            <option value="Sholinganallur">Sholinganallur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="BookingType" class="register-label">Booking Type</label>
+                        <select id="BookingType" name="BookingType" class="form-control">
+                            <option value="Pre-booking">Pre-booking</option>
+                            <option value="Tatkal">Tatkal</option>
+                            <option value="Spot">Spot</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="BookingDate" class="register-label">Booking Date</label>
+                        <input type="date" id="BookingDate" name="BookingDate" class="form-control" />
+                        <span id="dateError" class="text-danger" style="display:none;">Invalid date for the selected booking type.</span>
+                    </div>
+                    @* attempt 4 *@
+
+                    <div id="deskMap" class="form-group">
+                        <label for="Desks" class="register-label">Select a Desk</label>
+                        <div id="desksContainer">
+                            @* <!-- Desks will be dynamically loaded here --> *@
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="SelectedDeskId" name="SelectedDeskId" />
+                    <button type="submit" class="btn btn-primary" id="bookButton"
+                            asp-area=""
+                            asp-controller="Booking"
+                            asp-action="Create">
+                        Book
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <img src="~/Images/uinature.jpeg" class="img-fluid side-Iamge" alt="Side Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('bookButton').addEventListener('click', function (event) {
+            var isAuthenticated = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(isAuthenticated));
+            if (!isAuthenticated) {
+                event.preventDefault();
+                alert('You need to login to book a seat.');
+                window.location.href = '@Url.Action("Login", "Account")';
+            }
+        });
+
+        //attempt 4
+
+        function updateDeskMap() {
+            var location = document.getElementById('Location').value;
+            fetch(`/Booking/GetDesksByLocation?location=${location}`)
+                .then(response => response.json())
+                .then(data => {
+                    var desksContainer = document.getElementById('desksContainer');
+                    desksContainer.innerHTML = '';
+                    data.forEach(desk => {
+                        var button = document.createElement('button');
+                        button.type = 'button';
+                        button.className = 'desk ' + (desk.isBooked ? 'booked' : (desk.isGuest ? 'guest' : 'available'));
+                        button.dataset.deskId = desk.id;
+                        button.disabled = desk.isBooked;
+                        button.textContent = desk.location + ' - Row ' + desk.row;
+                        desksContainer.appendChild(button);
+
+                        // Add event listener for each desk button
+                        button.addEventListener('click', function () {
+                            var deskId = this.getAttribute('data-desk-id');
+                            document.getElementById('SelectedDeskId').value = deskId;
+                            document.querySelectorAll('.desk').forEach(btn => btn.classList.remove('selected'));
+                            this.classList.add('selected');
+                        });
+                    });
+                });
+        }
+
+        document.getElementById('Location').addEventListener('change', function () {
+            updateDeskMap();
+        });
+
+        document.getElementById('BookingType').addEventListener('change', function () {
+            var bookingType = this.value;
+            fetch(`/Booking/GetAvailableDates?bookingType=${bookingType}`)
+                .then(response => response.json())
+                .then(data => {
+                    var bookingDateInput = document.getElementById('BookingDate');
+                    bookingDateInput.innerHTML = '';
+                    data.forEach(date => {
+                        var option = document.createElement('option');
+                        option.value = date;
+                        option.text = new Date(date).toLocaleDateString();
+                        bookingDateInput.appendChild(option);
+                    });
+                });
+        });
+
+        document.getElementById('BookingDate').addEventListener('change', function () {
+            var bookingType = document.getElementById('BookingType').value;
+            var bookingDate = new Date(this.value);
+            var currentDate = new Date();
+            var dateError = document.getElementById('dateError');
+            var bookButton = document.getElementById('bookButton'); // Added reference to the "Book" button
+            dateError.style.display = 'none';
+            bookButton.disabled = false; // Enable the button initially
+
+            if (bookingType === 'Pre-booking' && (bookingDate < currentDate || bookingDate > new Date(currentDate.setDate(currentDate.getDate() + 90)))) {
+                dateError.textContent = 'You can book only 90 days prior.';
+                dateError.style.display = 'block';
+                bookButton.disabled = true; // Disable the button if the date is invalid
+            } else if (bookingType === 'Tatkal' && (bookingDate.getDate() !== currentDate.getDate() + 1 || bookingDate.getMonth() !== currentDate.getMonth() || bookingDate.getFullYear() !== currentDate.getFullYear())) {
+                dateError.textContent = 'You can book only one day prior.';
+                dateError.style.display = 'block';
+                bookButton.disabled = true; // Disable the button if the date is invalid
+            }
+        });
+
+        //attempt3
+
+        // at 4 :- Load desks initially for the default location
+        updateDeskMap();
+
+        // Initial event listener for desk buttons
+        document.querySelectorAll('.desk').forEach(button => {
+            button.addEventListener('click', function () {
+                var deskId = this.getAttribute('data-desk-id');
+                document.getElementById('SelectedDeskId').value = deskId;
+                document.querySelectorAll('.desk').forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+
+    @* Attempt 2:  for desk booking functionality *@
+    <style>
+        .desk {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+        }
+
+        .available {
+            background-color: green;
+        }
+
+        .booked {
+            background-color: red;
+        }
+
+        .guest {
+            background-color: blue;
+        }
+    </style>
+}
